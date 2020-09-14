@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DojoSecrets</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Dojo Secrets</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav navbar-right">
+      <% if current_user %>
+      <li class="nav-item">
+        <a class="nav-link" href="/secrets">All Secrets <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/<%= current_user.id %>">Your Page <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/sessions/<%=current_user.id%>" data-method="delete">Logout <span class="sr-only">(current)</span></a>
+      </li>
+    <% else %>
+      <li class="nav-item">
+        <a class="nav-link" href="/sessions/new">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/new">Register <span class="sr-only">(current)</span></a>
+      </li>
+    <% end %> 
+  </ul>
+  </div>
+  </nav>
+
+  <div class="container">
+  <%= yield %>
+  <% if flash[:errors] %>
+  <% flash[:errors].each do |e| %>
+    <p><%= e %></p>
+    <% end %>
+  <% end %>
+  </div>
+
+</body>
+</html>
